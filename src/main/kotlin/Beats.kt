@@ -16,7 +16,7 @@ suspend fun playBeats(beats: String, file: String) {
         if (part == ""){
             playSound(file)
         }else{
-            delay(500 * (part.length + 1L))
+            delay(150 * (part.length + 1L))
             if (count < beats.length) {
                 playSound(file)
             }
@@ -34,8 +34,9 @@ fun playSound(file: String){
 
 suspend fun main(){
     runBlocking{
-        launch { playBeats("x-x-x-x-x-x-x-x-", "toms.aiff") }
-        launch { playBeats("x-------x-------", "crash_cymbal.aiff") }
+        launch { playBeats("x-x-x-x-x-x-x-x-x-x-x-x-", "kick_drum.aiff") }
+        launch { playBeats("x-----------x-----------", "crash_cymbal.aiff") }
+        launch { playBeats("x---x---x---x---x---x---", "high_hat.aiff") }
         // Bam! Bam! Bam! Bam! Bam! Bam! Tish! Tish!
     }
 }
