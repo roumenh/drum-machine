@@ -1,9 +1,10 @@
 import java.io.File
 import javax.sound.sampled.AudioSystem
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
-fun playBeats(beats: String, file: String) {
+suspend fun playBeats(beats: String, file: String) {
     /*
     takes parameter beats - to specify the pattern and file that specifies the sound to play
      */
@@ -15,8 +16,7 @@ fun playBeats(beats: String, file: String) {
         if (part == ""){
             playSound(file)
         }else{
-            println(part.length)
-            Thread.sleep(100 * (part.length + 1L))
+            delay(500 * (part.length + 1L))
             if (count < beats.length) {
                 playSound(file)
             }
@@ -32,8 +32,10 @@ fun playSound(file: String){
     clip.start()
 }
 
-fun main(){
-    GlobalScope.launch { playBeats("x-x-x-x-x-x-x", "toms.aiff") }
-    playBeats("x-----x-----x", "crash_cymbal.aiff")
-    // Bam! Bam! Bam! Bam! Bam! Bam! Tish! Tish!
+suspend fun main(){
+    runBlocking{
+        launch { playBeats("x-x-x-x-x-x-x-x-", "toms.aiff") }
+        launch { playBeats("x-------x-------", "crash_cymbal.aiff") }
+        // Bam! Bam! Bam! Bam! Bam! Bam! Tish! Tish!
+    }
 }
